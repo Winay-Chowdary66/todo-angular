@@ -1,0 +1,45 @@
+<ng-container class="todos">
+  <i
+    class="far fa-check-circle"
+    aria-hidden="true"
+    (click)="finishTodo(index)"
+    title="Finish"
+  ></i>
+  <i
+    class="fas fa-spinner"
+    title="In Progress"
+    [ngClass]="{ disabled: todo.finished, inprogress: todo.inProgress }"
+    (click)="makeInProgress(index)"
+  ></i>
+  <p
+    *ngIf="!editInput"
+    class="todo"
+    [ngClass]="{
+      'finished': todo.finished,
+      'todo': !todo.finished,
+      'todo inprogress': todo.inProgress
+    }"
+  >
+    {{ todo.todoContent }}
+  </p>
+  <input
+    *ngIf="editInput"
+    type="text"
+    value="{{ todo.todoContent }}"
+    [(ngModel)]="todoInputChild"
+    class="todo-input"
+  />
+  <i
+    [ngClass]="todo.finished ? 'disabled' : ''"
+    class="far fa-edit"
+    aria-hidden="true"
+    (click)="editTodo(index)"
+    title="Edit"
+  ></i>
+  <i
+    class="far fa-trash-alt"
+    aria-hidden="true"
+    (click)="deleteTodo(index)"
+    title="Delete"
+  ></i>
+</ng-container>

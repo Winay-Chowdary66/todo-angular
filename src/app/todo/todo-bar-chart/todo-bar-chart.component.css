@@ -1,0 +1,58 @@
+#todo-container #bar-chart-cont {
+  /* background-color: rgb(214, 207, 207); */
+  padding-left: 50px;
+  /* border: 1px solid #fff; */
+}
+#bar-chart-cont #bar-chart {
+  /* background-color: rgb(214, 207, 207); */
+  position: relative;
+  height: 60vh;
+  width: 40rem;
+  padding: 30px;
+  border-left: 2px solid rgb(255, 255, 255);
+  border-bottom: 2px solid rgb(255, 255, 255);
+  display: grid;
+  grid-template-columns: 2fr 2fr 2fr;
+  /* background-color: #000; */
+  place-items: center;
+  color: #fff;
+}
+
+#bar-chart-cont #bar-chart .bar {
+  display: flex;
+  flex-direction: column;
+}
+
+#bar-chart-cont #bar-chart .bar .name {
+  position: relative;
+  bottom: -220px;
+  left: -15px;
+}
+
+#bar-chart-cont #bar-chart .bar .bars {
+  /* background-color: aliceblue; */
+  width: 40px;
+  position: fixed;
+  bottom: 98px;
+}
+#bar-chart-cont #bar-chart .bar .bar1 {
+  background-color: #e63946;
+}
+#bar-chart-cont #bar-chart .bar .bar2 {
+  background-color: #e09f3e;
+}
+#bar-chart-cont #bar-chart .bar .bar3 {
+  background-color: #023e8a;
+}
+/* .bars:nth-child(2){
+  background-color: rgb(235, 223, 223);
+} */
+
+#bar-chart .bar .bars .count {
+  position: absolute;
+  top: -30px;
+  text-align: center;
+  align-items: center;
+  left: 13px;
+  font-size: 20px;
+}

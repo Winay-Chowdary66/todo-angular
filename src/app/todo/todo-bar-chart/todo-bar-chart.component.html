@@ -1,0 +1,22 @@
+<div id="bar-chart-cont">
+  <div id="bar-chart">
+    <div class="bar">
+      <div class="bars bar1" [ngStyle]="{'height': openCount*30+1+'px'}">
+        <div class="count">{{ openCount }}</div>
+      </div>
+      <div class="name">Open Todo</div>
+    </div>
+    <div class="bar">
+      <div class="bars bar2" [ngStyle]="{'height': finishedCount*30+1+'px'}">
+        <div class="count">{{ finishedCount }}</div>
+      </div>
+      <div class="name">Finished</div>
+    </div>
+    <div class="bar">
+      <div class="bars bar3" [ngStyle]="{'height': inProgressCount*30+1+'px'}">
+        <div class="count">{{ inProgressCount }}</div>
+      </div>
+      <div class="name">In Progress</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,536 @@
+<form
+  id="content"
+  [formGroup]="regForm"
+  (submit)="regForm.valid && submitForm()"
+  #itemForm="ngForm"
+>
+  <div id="field-container">
+    <div class="field" *ngFor="let field of regDetails; let i = index">
+      <span [ngClass]="field.iconClass"></span>
+      <div [ngClass]="field.controlName == 'gender' ? field.controlName : null">
+        <label [for]="field.maleId" *ngIf="field.controlName == 'gender'">{{
+          field.labelMale
+        }}</label>
+        <input
+          #itemControl
+          type="{{
+            field.inputType == 'password'
+              ? (field.controlName == 'password' ? showPswd : showReptPswd)
+                ? 'text'
+                : field.inputType
+              : field.inputType
+          }}"
+          [ngClass]="
+            field.controlName != 'gender'
+              ? getFormControl(field.controlName).invalid &&
+                getFormControl(field.controlName).touched
+                ? 'not-valid'
+                : 'valid'
+              : 'no-class'
+          "
+          [placeholder]="field.inputPlaceHolder"
+          [formControlName]="field.controlName"
+          required
+          spellcheck="false"
+          class="user-input"
+          [readonly]="field.controlName == 'age'"
+          [name]="field.groupName"
+          [id]="field.groupName == 'gender' ? field.maleId : i"
+          [min]="field.controlName == 'dateOfBirth' ? tempMinDate : 0"
+          [max]="field.controlName == 'dateOfBirth' ? maxDate : 0"
+        />
+        <ng-container *ngIf="field.inputType == 'password'">
+          <i
+            *ngIf="!getFormControl(field.controlName).errors?.required"
+            [ngClass]="
+              (field.controlName == 'password' ? !showPswd : !showReptPswd)
+                ? 'far fa-eye-slash'
+                : 'far fa-eye'
+            "
+            id="eye"
+            (click)="
+              field.controlName == 'password'
+                ? showPassword()
+                : showReptPassword()
+            "
+          ></i>
+        </ng-container>
+        <ng-container *ngIf="field.controlName == 'password'">
+          <div
+            id="pswd-strength"
+            *ngIf="
+              !getFormControl('password').errors?.required &&
+              (hasNum ||
+                hasLowerAlpha ||
+                hasUpperAlpha ||
+                hasSpecialChar ||
+                !getFormControl('password').errors?.minlength)
+            "
+          >
+            <div
+              class="bars bar1"
+              [ngClass]="hasUpperAlpha ? 'cool' : 'danger'"
+            ></div>
+            <div
+              class="bars bar2"
+              [ngClass]="hasLowerAlpha ? 'cool' : 'danger'"
+            ></div>
+            <div class="bars bar3" [ngClass]="hasNum ? 'cool' : 'danger'"></div>
+            <div
+              class="bars bar4"
+              [ngClass]="hasSpecialChar ? 'cool' : 'danger'"
+            ></div>
+            <div
+              class="bars bar5"
+              [ngClass]="
+                !getFormControl('password').errors?.minlength
+                  ? 'cool'
+                  : 'danger'
+              "
+            ></div>
+            <small
+              *ngIf="
+                !(
+                  hasNum &&
+                  hasLowerAlpha &&
+                  hasUpperAlpha &&
+                  hasSpecialChar &&
+                  !getFormControl('password').errors?.minlength
+                )
+              "
+              >Weak</small
+            >
+            <small
+              *ngIf="
+                hasNum &&
+                hasLowerAlpha &&
+                hasUpperAlpha &&
+                hasSpecialChar &&
+                !getFormControl('password').errors?.minlength
+              "
+              >Strong</small
+            >
+          </div>
+        </ng-container>
+        <label [for]="field.femaleId" *ngIf="field.controlName == 'gender'">{{
+          field.labelFemale
+        }}</label>
+        <input
+          *ngIf="field.controlName == 'gender'"
+          type="{{ field.inputType }}"
+          [ngClass]="
+            field.controlName != 'gender'
+              ? getFormControl(field.controlName).invalid &&
+                getFormControl(field.controlName).touched
+                ? 'not-valid'
+                : 'valid'
+              : 'no-class'
+          "
+          [placeholder]="field.inputPlaceHolder"
+          [formControlName]="field.controlName"
+          required
+          spellcheck="false"
+          class="user-input"
+          [name]="field.groupName"
+          [id]="field.femaleId"
+          [value]="field.labelFemale"
+        />
+      </div>
+      <div
+        *ngIf="
+          (field.controlName != 'gender' && field.controlName != 'age')
+            ? getFormControl(field.controlName).invalid &&
+              getFormControl(field.controlName).touched
+            : true
+        "
+        id="error-text"
+      >
+        <ng-container *ngIf="field.requiredErrorText">
+          <small *ngIf="getFormControl(field.controlName).errors?.required">
+            {{ field.requiredErrorText }}
+          </small>
+        </ng-container>
+        <ng-container *ngIf="field.patternErrorText">
+          <small *ngIf="getFormControl(field.controlName).errors?.pattern">
+            {{ field.patternErrorText }}
+          </small>
+        </ng-container>
+        <ng-container *ngIf="field.minLenErrorText">
+          <small *ngIf="getFormControl(field.controlName).errors?.minlength">
+            {{ field.minLenErrorText }}
+          </small>
+        </ng-container>
+        <ng-container *ngIf="field.minErrorText">
+          <small *ngIf="getFormControl(field.controlName).errors?.min">
+            {{ field.minErrorText }}
+          </small>
+        </ng-container>
+        <ng-container *ngIf="field.noPasswordMatch">
+          <small
+            *ngIf="
+              !getFormControl(field.controlName).errors?.required &&
+              !getFormControl(field.controlName).errors?.NoPasswordMatch
+            "
+          >
+            {{ field.noPasswordMatch }}
+          </small>
+        </ng-container>
+      </div>
+    </div>
+
+    <!-- <div class="field">
+      <span class="fa fa-user"></span>
+      <input
+        type="text"
+        [ngClass]="
+          getFormControl('fullName').invalid &&
+          getFormControl('fullName').touched
+            ? 'not-valid'
+            : 'valid'
+        "
+        placeholder="full name *"
+        formControlName="fullName"
+        required
+        spellcheck="false"
+        class="user-input"
+      />
+      <div
+        *ngIf="
+          getFormControl('fullName').invalid &&
+          getFormControl('fullName').touched
+        "
+        id="error-text"
+      >
+        <small *ngIf="getFormControl('fullName').errors?.required"
+          >Full name is required</small
+        >
+        <small *ngIf="getFormControl('fullName').errors?.minlength"
+          >Should be atleast 5 char* long.</small
+        >
+        <small *ngIf="getFormControl('fullName').errors?.pattern"
+          >Should only contain Alphabets</small
+        >
+      </div>
+    </div>
+    <div class="field">
+      <span class="fa fa-user"></span>
+      <input
+        type="text"
+        [ngClass]="
+          getFormControl('userName').invalid &&
+          getFormControl('userName').touched
+            ? 'not-valid'
+            : 'valid'
+        "
+        placeholder="username *"
+        formControlName="userName"
+        required
+        spellcheck="false"
+        class="user-input"
+      />
+      <div
+        *ngIf="
+          getFormControl('userName').invalid &&
+          getFormControl('userName').touched
+        "
+        id="error-text"
+      >
+        <small *ngIf="getFormControl('userName').errors?.required"
+          >Username is required</small
+        >
+        <small *ngIf="getFormControl('userName').errors?.minlength"
+          >should be atleast 5 char* long</small
+        >
+        <small *ngIf="getFormControl('userName').errors?.pattern"
+          >should only have '-'</small
+        >
+      </div>
+    </div>
+    <div class="field">
+      <span class="fa fa-at"></span>
+      <input
+        type="mail"
+        [ngClass]="
+          getFormControl('emailId').invalid && getFormControl('emailId').touched
+            ? 'not-valid'
+            : 'valid'
+        "
+        placeholder="email-id *"
+        formControlName="emailId"
+        required
+        spellcheck="false"
+        class="user-input"
+      />
+      <div
+        *ngIf="
+          getFormControl('emailId').invalid && getFormControl('emailId').touched
+        "
+        id="error-text"
+      >
+        <small *ngIf="getFormControl('emailId').errors?.required"
+          >Email is required</small
+        >
+        <small *ngIf="getFormControl('emailId').errors?.pattern"
+          >Invalid Email format</small
+        >
+      </div>
+    </div>
+    <div class="field">
+      <span class="fas fa-calendar"></span>
+      <input
+        type="date"
+        [ngClass]="
+          getFormControl('dateOfBirth').invalid &&
+          getFormControl('dateOfBirth').touched
+            ? 'not-valid'
+            : 'valid'
+        "
+        placeholder="Date of Birth *"
+        formControlName="dateOfBirth"
+        required
+        class="user-input"
+      />
+      <div
+        *ngIf="
+          getFormControl('dateOfBirth').invalid &&
+          getFormControl('dateOfBirth').touched
+        "
+        id="error-text"
+      >
+        <small *ngIf="getFormControl('dateOfBirth').errors?.required"
+          >Date Of Birth is required</small
+        >
+      </div>
+    </div>
+    <div class="field">
+      <span class="fas fa-child"></span>
+      <input
+        type="number"
+        placeholder="age"
+        formControlName="age"
+        required
+        spellcheck="false"
+        class="user-input"
+        readonly
+      />
+      <div id="error-text">
+        <small *ngIf="getFormControl('age').errors?.min"
+          >Age should be 18 or above.</small
+        >
+      </div>
+    </div>
+    <div class="field">
+      <span class="fas fa-venus-mars"></span>
+      <div id="gender">
+        <label for="male">Male</label>
+        <input
+          type="radio"
+          name="gender"
+          placeholder=""
+          formControlName="gender"
+          value="Male"
+          id="male"
+          class="user-input"
+        />
+        <label for="female">Female</label>
+        <input
+          type="radio"
+          name="gender"
+          formControlName="gender"
+          value="Female"
+          id="female"
+          class="user-input"
+        />
+      </div>
+      <div id="error-text">
+        <small *ngIf="getFormControl('gender').errors?.required"
+          >Gender is required</small
+        >
+      </div>
+    </div>
+    <div class="field">
+      <span class="fa fa-lock"></span>
+      <input
+        [type]="showPswd ? 'text' : 'password'"
+        [ngClass]="
+          getFormControl('password').invalid &&
+          getFormControl('password').touched
+            ? 'not-valid'
+            : 'valid'
+        "
+        placeholder="password *"
+        formControlName="password"
+        spellcheck="false"
+        class="user-input"
+      />
+      <i
+        [ngClass]="!showPswd ? 'far fa-eye-slash' : 'far fa-eye'"
+        id="eye"
+        *ngIf="!getFormControl('password').errors?.required"
+        (click)="showPassword()"
+      ></i>
+      <div
+        *ngIf="
+          getFormControl('password').invalid &&
+          getFormControl('password').touched
+        "
+        id="error-text"
+      >
+        <small *ngIf="getFormControl('password').errors?.required"
+          >Password is required</small
+        >
+      </div>
+      <div
+        id="pswd-strength"
+        *ngIf="
+          !getFormControl('password').errors?.required &&
+          (hasNum ||
+            hasLowerAlpha ||
+            hasUpperAlpha ||
+            hasSpecialChar ||
+            !getFormControl('password').errors?.minlength)
+        "
+      >
+        <div
+          class="bars bar1"
+          [ngClass]="hasUpperAlpha ? 'cool' : 'danger'"
+        ></div>
+        <div
+          class="bars bar2"
+          [ngClass]="hasLowerAlpha ? 'cool' : 'danger'"
+        ></div>
+        <div class="bars bar3" [ngClass]="hasNum ? 'cool' : 'danger'"></div>
+        <div
+          class="bars bar4"
+          [ngClass]="hasSpecialChar ? 'cool' : 'danger'"
+        ></div>
+        <div
+          class="bars bar5"
+          [ngClass]="
+            !getFormControl('password').errors?.minlength ? 'cool' : 'danger'
+          "
+        ></div>
+        <small
+          *ngIf="
+            !(
+              hasNum &&
+              hasLowerAlpha &&
+              hasUpperAlpha &&
+              hasSpecialChar &&
+              !getFormControl('password').errors?.minlength
+            )
+          "
+          >Weak</small
+        >
+        <small
+          *ngIf="
+            hasNum &&
+            hasLowerAlpha &&
+            hasUpperAlpha &&
+            hasSpecialChar &&
+            !getFormControl('password').errors?.minlength
+          "
+          >Strong</small
+        >
+      </div>
+    </div>
+    <div class="field">
+      <span class="fa fa-lock"></span>
+      <input
+        [type]="showReptPswd ? 'text' : 'password'"
+        [ngClass]="
+          getFormControl('repeatPassword').invalid &&
+          getFormControl('repeatPassword').touched
+            ? 'not-valid'
+            : 'valid'
+        "
+        placeholder="repeat password *"
+        formControlName="repeatPassword"
+        required
+        spellcheck="false"
+        class="user-input"
+      />
+      <i
+        [ngClass]="!showReptPswd ? 'far fa-eye-slash' : 'far fa-eye'"
+        id="eye"
+        *ngIf="!getFormControl('repeatPassword').errors?.required"
+        (click)="showReptPassword()"
+      ></i>
+      <div
+        *ngIf="
+          getFormControl('repeatPassword').invalid &&
+          getFormControl('repeatPassword').touched
+        "
+        id="error-text"
+      >
+        <small *ngIf="getFormControl('repeatPassword').errors?.required"
+          >Repeat Password is required</small
+        >
+        <small
+          *ngIf="
+            !getFormControl('repeatPassword').errors?.required &&
+            !getFormControl('repeatPassword').errors?.NoPasswordMatch
+          "
+          >Passwords doesn't match</small
+        >
+      </div>
+    </div>
+    <div class="field">
+      <span class="fas fa-phone-alt"></span>
+      <input
+        type="tel"
+        [ngClass]="
+          getFormControl('phoneNumber').invalid &&
+          getFormControl('phoneNumber').touched
+            ? 'not-valid'
+            : 'valid'
+        "
+        placeholder="phone number *"
+        formControlName="phoneNumber"
+        required
+        spellcheck="false"
+        class="user-input"
+      />
+      <div
+        id="error-text"
+        *ngIf="
+          getFormControl('phoneNumber').invalid &&
+          getFormControl('phoneNumber').touched
+        "
+      >
+        <small *ngIf="getFormControl('phoneNumber').errors?.required"
+          >Phone Number is required</small
+        >
+        <small *ngIf="getFormControl('phoneNumber').errors?.pattern"
+          >Invalid Phone Number</small
+        >
+      </div>
+    </div> -->
+    <div id="terms-cond-cont">
+      <input
+        type="checkbox"
+        name="terms"
+        id="terms-cond"
+        formControlName="termsAndCond"
+        required
+      />
+      <p>* Accept <b>Terms</b> and <b>Conditions</b>.</p>
+    </div>
+  </div>
+  <button
+    type="submit"
+    class="regBtn"
+    [disabled]="!regForm.valid"
+    [ngClass]="
+      this.regForm.valid && this.getFormControl('termsAndCond').value
+        ? 'enabled'
+        : 'disabled'
+    "
+  >
+    Register
+  </button>
+  <div class="login">
+    <p>Already have an account.?</p>
+    <button class="loginBtn" (click)="goToLogin()">Login</button>
+  </div>
+</form>

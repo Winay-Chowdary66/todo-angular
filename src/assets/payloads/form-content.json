@@ -1,0 +1,79 @@
+{
+  "regDetails": [
+    {
+      "iconClass": "fa fa-user",
+      "inputType": "text",
+      "controlName" : "fullName",
+      "inputPlaceHolder": "full name *",
+      "requiredErrorText": "Full name is required",
+      "patternErrorText": "Should only contain Alphabets"
+    },
+    {
+      "iconClass": "fa fa-user",
+      "inputType": "text",
+      "controlName": "userName",
+      "inputPlaceHolder": "username *",
+      "requiredErrorText": "Username is required",
+      "minLenErrorText": "should be atleast 5 char* long",
+      "patternErrorText": "should only have '-'"
+
+    },
+    {
+      "iconClass": "fa fa-at",
+      "inputType": "mail",
+      "controlName": "emailId",
+      "inputPlaceHolder": "email-id *",
+      "requiredErrorText": "Email is required",
+      "patternErrorText": "Invalid Email format"
+    },
+    {
+      "iconClass": "fas fa-calendar",
+      "inputType": "date",
+      "controlName": "dateOfBirth",
+      "inputPlaceHolder": "Date of Birth *",
+      "requiredErrorText": "Date Of Birth is required"
+    },
+    {
+      "iconClass": "fas fa-child",
+      "inputType": "number",
+      "controlName": "age",
+      "inputPlaceHolder": "age",
+      "minErrorText": "Age should be 18 or above."
+    },
+    {
+      "iconClass": "fas fa-venus-mars",
+      "inputType": "radio",
+      "controlName": "gender",
+      "inputPlaceHolder": "gender",
+      "requiredErrorText": "Gender is required",
+      "maleId": "male",
+      "femaleId": "female",
+      "groupName": "gender",
+      "labelMale": "Male",
+      "labelFemale": "Female"
+    },
+    {
+      "iconClass": "fa fa-lock",
+      "inputType": "password",
+      "controlName": "password",
+      "inputPlaceHolder": "password *",
+      "requiredErrorText":"Password is required"
+    },
+    {
+      "iconClass": "fa fa-lock",
+      "inputType": "password",
+      "controlName": "repeatPassword",
+      "inputPlaceHolder": "repeat password *",
+      "requiredErrorText":"Repeat Password is required",
+      "noPasswordMatch": "Passwords doesn't match"
+    },
+    {
+      "iconClass": "fas fa-phone-alt",
+      "inputType": "tel",
+      "controlName": "phoneNumber",
+      "inputPlaceHolder": "phone number *",
+      "requiredErrorText": "Phone Number is required",
+      "patternErrorText": "Invalid Phone Number"
+    }
+  ]
+}

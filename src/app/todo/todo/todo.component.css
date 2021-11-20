@@ -1,0 +1,134 @@
+header {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../../assets/images/bg-img.jpeg") no-repeat;
+  background-size: 100% 100%;
+  display: grid;
+  place-items: center;
+  padding: 30px;
+}
+
+#todo-container {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+  /* background-color: #fff; */
+  color: #ef476f;
+  display: grid;
+  grid-template-rows: 0.1fr 1fr;
+  /* gap: 40px; */
+}
+
+#todo-container #title {
+  /* background-color: #000; */
+  align-items: center;
+  text-align: center;
+  letter-spacing: 2px;
+  font-size: 45px;
+  color: tomato;
+  opacity: 0.9;
+}
+
+#todo-container #todo-bar-chart {
+  /* background-color: rgb(223, 12, 12); */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+#todo-container #container {
+  /* background-color: rgb(223, 12, 12); */
+  padding: 20px;
+}
+
+.todo-list {
+  height: 50vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+#list-container {
+  /* background-color: rgb(224, 14, 14); */
+  padding: 30px;
+  width: 100%;
+  align-items: center;
+  text-align: center;
+  color: #fff;
+  font-size: 20px;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.todo-list::-webkit-scrollbar {
+  background-color: transparent;
+  height: 4px;
+  width: 4px;
+}
+
+.todo-list::-webkit-scrollbar-thumb {
+  background: #687272;
+  border-radius: 2px;
+  height: 20px;
+  min-height: 20px;
+}
+
+#todo-container #container #todo-input {
+  width: 100%;
+  /* background-color: #fff; */
+}
+
+#container #todo-input #todo-text {
+  width: 100%;
+  height: 8vh;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #fff;
+  background-color: transparent;
+  color: #fff;
+  font-size: 20px;
+  padding: 20px;
+}
+
+#container #todo-input #todo-text:focus {
+  border-bottom: 1px solid #f2c660;
+  transition: border 0.5s ease-in-out;
+}
+
+#container #todo-input #add {
+  position: absolute;
+  height: 40px;
+  /* background-color: #fff; */
+  right: 700px;
+  cursor: pointer;
+}
+
+.todo-item {
+  display: grid;
+  grid-template-columns: 0.2fr 0.2fr 2fr 0.2fr 0.2fr;
+}
+
+#logout-btn {
+  position: absolute;
+  right: 20px;
+  top: -10px;
+}
+
+#logout-btn #btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 100px;
+  color: #fff;
+  font-size: 25px;
+  font-weight: 500;
+  background-color: transparent;
+  letter-spacing: 2px;
+}
+
+@media only screen and (max-width: 400px) {
+  #todo-container {
+    height: 0vh;
+  }
+}

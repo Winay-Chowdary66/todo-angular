@@ -1,0 +1,87 @@
+<form
+  id="content"
+  [formGroup]="loginForm"
+  (submit)="loginForm.valid && loginUser()"
+>
+  <small *ngIf="loginFailure">Invalid Username or Password</small>
+  <div class="field">
+    <span class="fa fa-user"></span>
+    <input
+      type="text"
+      [ngClass]="
+        getFormControl('userName').invalid && getFormControl('userName').touched
+          ? 'not-valid'
+          : 'valid'
+      "
+      placeholder="username"
+      formControlName="userName"
+      required
+      spellcheck="false"
+    />
+    <div
+      *ngIf="
+        getFormControl('userName').invalid && getFormControl('userName').touched
+      "
+      id="error-text"
+    >
+      <small *ngIf="getFormControl('userName').errors?.required"
+        >username is required</small
+      >
+      <small *ngIf="getFormControl('userName').errors?.minlength"
+        >should be atleast 5 char min</small
+      >
+      <small *ngIf="getFormControl('userName').errors?.pattern"
+        >should only have '-'</small
+      >
+    </div>
+  </div>
+  <div class="field">
+    <span class="fa fa-lock"></span>
+    <input
+      [type]="showPswd ? 'text': 'password'"
+      [ngClass]="
+        getFormControl('password').invalid && getFormControl('password').touched
+          ? 'not-valid'
+          : 'valid'
+      "
+      formControlName="password"
+      placeholder="password"
+      required
+      spellcheck="false"
+    />
+    <i
+      [ngClass]="!showPswd ? 'far fa-eye-slash' : 'far fa-eye'"
+      id="eye"
+      *ngIf="!getFormControl('password').errors?.required"
+      (click)="showPassword()"
+    ></i>
+    <div
+      *ngIf="
+        getFormControl('password').invalid && getFormControl('password').touched
+      "
+      id="error-text"
+    >
+      <small *ngIf="getFormControl('password').errors?.required"
+        >Password is required</small
+      >
+      <small *ngIf="getFormControl('password').errors?.minlength"
+        >should be atleast 8 char min</small
+      >
+
+      <small
+        *ngIf="
+          !getFormControl('password').errors?.minlength &&
+          getFormControl('password').errors?.pattern
+        "
+        >Invalid format</small
+      >
+    </div>
+  </div>
+  <button type="submit" class="loginBtn" [disabled]="!loginForm.valid">
+    Login
+  </button>
+  <div class="register">
+    <p>Don't have an account.?</p>
+    <button class="regBtn" (click)="goToRegister()">Register</button>
+  </div>
+</form>

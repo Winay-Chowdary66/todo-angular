@@ -1,0 +1,7 @@
+#register-container {
+  width: 100%;
+  height: 100vh;
+  background-color: #d4dee6;
+  display: grid;
+  grid-template-columns: 0.55fr 0.5fr;
+}

@@ -1,0 +1,73 @@
+#login-template {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #4f5758;
+  display: grid;
+  place-items: center;
+}
+
+#login-template #login-box {
+  position: absolute;
+  width: 350px;
+  height: 95vh;
+  background: #4f5758;
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.3),
+    -8px -8px 16px rgba(217, 215, 215, 0.2);
+  border-radius: 40px;
+  display: grid;
+  place-items: center;
+}
+
+#login-box #todo-logo {
+  width: 50px;
+  height: 8vh;
+  border-radius: 50%;
+  position: absolute;
+  top: -25px;
+  box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.3),
+    -8px -8px 16px rgba(217, 215, 215, 0.2);
+  object-fit: cover;
+}
+#login-template #login-box::before {
+  content: "";
+  display: block;
+  width: 270px;
+  height: 7px;
+  background-color: #4f5758;
+  /* border-radius: 25px; */
+  box-shadow: -4px -4px 12px rgba(183, 180, 180, 0.589),
+    4px 4px 22px rgba(197, 191, 191, 0.116);
+  position: absolute;
+  top: -2px;
+  border-radius: 100%;
+  z-index: 1;
+}
+
+#login-template #login-box::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 5px;
+  /* background-color: #dae0e0; */
+  position: absolute;
+  bottom: 6px;
+  border-radius: 50px;
+  opacity: 0.5;
+  background: #9a9999;
+  box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.25);
+  border-radius: 100px;
+}
+
+#login-content {
+  display: grid;
+  place-items: center;
+}
+
+#login-content #error {
+  z-index: 1;
+  color: rgb(0, 0, 0);
+  position: absolute;
+  top: 40px;
+  font-weight: bolder;
+}

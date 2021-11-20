@@ -1,0 +1,61 @@
+<header>
+  <div id="todo-container">
+    <div id="title"><h1>todo's</h1></div>
+    <div id="logout-btn">
+      <button id="btn" (click)="logoutUser()">Logout</button>
+    </div>
+    <div id="todo-bar-chart">
+      <div id="container">
+        <div id="todo-input">
+          <form (submit)="addTodo($event)">
+            <input
+              type="text"
+              name="todo"
+              id="todo-text"
+              placeholder="Enter your Todo"
+              required
+              autocomplete="off"
+              value=""
+              spellcheck="false"
+              [(ngModel)]="inputTodo"
+              title="Enter Todo"
+              #todoInputDom
+            />
+            <img
+              src="../assets/images/add.png"
+              alt="Add"
+              id="add"
+              (click)="addTodo($event)"
+              title="Add"
+              #imgDom
+            />
+          </form>
+        </div>
+        <app-empty-todo
+          *ngIf="todoList.length <= 0"
+          [emptyText]="emptyTodo"
+        ></app-empty-todo>
+        <div class="todo-list">
+          <div id="list-container">
+            <app-todo-item
+              class="todo-item"
+              *ngFor="let todo of todoList; let i = index"
+              [todo]="todo"
+              [index]="i"
+              (finishEvent)="finishTodo($event)"
+              (editEvent)="editTodo($event)"
+              (deleteEvent)="deleteTodo($event)"
+              (progressEvent)="makeInProgress($event)"
+            >
+            </app-todo-item>
+          </div>
+        </div>
+      </div>
+      <app-todo-bar-chart
+        [openCount]="openCount"
+        [finishedCount]="finishedCount"
+        [inProgressCount]="inProgressCount"
+      ></app-todo-bar-chart>
+    </div>
+  </div>
+</header>

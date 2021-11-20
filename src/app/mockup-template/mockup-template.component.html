@@ -1,0 +1,16 @@
+<div id="login-template">
+  <div id="login-box">
+    <!-- <img src="../../assets/website-icon.jpg" alt="Todo Logo" id="todo-logo"> -->
+    <div id="login-content">
+      <ng-container
+        *ngTemplateOutlet="isLoginOrReg ? loginContent : registerContent"
+      ></ng-container>
+      <ng-template #loginContent>
+        <app-login-content></app-login-content>
+      </ng-template>
+      <ng-template #registerContent>
+        <app-register-content></app-register-content>
+      </ng-template>
+    </div>
+  </div>
+</div>
