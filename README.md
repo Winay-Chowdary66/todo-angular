@@ -1,5 +1,7 @@
 # TodoAngular
 
+This is an simple Todo App with Authentication and a Bar chart that represents open, in progress & finished todo's.
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.2.12.
 
 ## Development server
